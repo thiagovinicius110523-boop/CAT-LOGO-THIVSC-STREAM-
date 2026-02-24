@@ -1,0 +1,38 @@
+*{box-sizing:border-box}
+html,body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);
+background:radial-gradient(1200px 700px at 20% 20%, rgba(56,189,248,.18), transparent 55%),
+radial-gradient(1000px 650px at 70% 25%, rgba(96,165,250,.18), transparent 55%),
+radial-gradient(900px 600px at 55% 110%, rgba(14,165,233,.10), transparent 60%),
+linear-gradient(180deg, #030713 0%, var(--bg) 45%, #030713 100%);overflow-x:hidden}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);
+background:radial-gradient(1200px 700px at 20% 20%, rgba(56,189,248,.18), transparent 55%),
+radial-gradient(1000px 650px at 70% 25%, rgba(96,165,250,.18), transparent 55%),
+radial-gradient(900px 600px at 55% 110%, rgba(14,165,233,.10), transparent 60%),
+linear-gradient(180deg, #030713 0%, var(--bg) 45%, #030713 100%);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.card{border-radius:calc(var(--radius) * 1px);border:1px solid rgba(148,163,184,.16);background:var(--card);backdrop-filter:blur(14px);box-shadow:0 16px 44px rgba(0,0,0,.45)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.h1{font-size:34px;font-weight:900;margin:0}
+.h2{font-size:18px;font-weight:900;margin:0}
+.small{color:var(--muted);font-size:12px;line-height:1.45}
+.pill{padding:10px 14px;border-radius:999px;border:1px solid rgba(148,163,184,.16);background:rgba(255,255,255,.04);color:rgba(243,246,255,.92);font-weight:800;cursor:pointer}
+.pillPrimary{background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 95%, white 5%), color-mix(in srgb, var(--accent) 75%, black 25%));color:#07111f;border-color:transparent}
+.input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(148,163,184,.18);background:rgba(18,30,52,.20);color:rgba(243,246,255,.92);outline:none}
+.select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(148,163,184,.18);background:rgba(18,30,52,.20);color:rgba(243,246,255,.92);outline:none}
+textarea.input{min-height:92px;resize:vertical}
+.hr{height:1px;background:rgba(148,163,184,.12);margin:12px 0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.16);background:rgba(255,255,255,.03);font-size:12px;color:rgba(205,219,245,.82)}
+.kpi{padding:12px 14px;border-radius:16px;border:1px solid rgba(148,163,184,.12);background:rgba(255,255,255,.03);min-width:180px}
+.kpi b{display:block;font-size:22px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px 10px;border-bottom:1px solid rgba(148,163,184,.10);font-size:12px;text-align:left;vertical-align:top}
+.table th{color:rgba(205,219,245,.75);font-weight:900}
+.table td{color:rgba(243,246,255,.88)}
+.miniBtn{padding:7px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(255,255,255,.04);color:rgba(243,246,255,.92);font-weight:800;cursor:pointer}
+.miniBtnDanger{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.12);color:rgba(255,220,220,.95)}
+.toast{position:fixed;right:16px;bottom:16px;z-index:50;max-width:360px}
+.toast>div{margin-top:10px;padding:12px 14px;border-radius:16px;border:1px solid rgba(148,163,184,.16);background:rgba(16,28,52,.32);backdrop-filter:blur(14px);box-shadow:0 16px 44px rgba(0,0,0,.45)}
