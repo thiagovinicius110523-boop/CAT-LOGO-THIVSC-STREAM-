@@ -1,20 +1,9 @@
 import { cookies } from "next/headers";
-import { createServerClient } from "@supabase/ssr";
-
-// Minimal cookie options type compatible with Next.js cookies API.
-type CookieOptions = {
-  path?: string;
-  domain?: string;
-  maxAge?: number;
-  expires?: Date;
-  httpOnly?: boolean;
-  secure?: boolean;
-  sameSite?: "lax" | "strict" | "none";
-  [key: string]: unknown;
-};
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
 export function supabaseServer() {
   const cookieStore = cookies();
+
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -24,10 +13,18 @@ export function supabaseServer() {
           return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
+          try {
+            cookieStore.set(name, value, options);
+          } catch {
+            // Em Server Components (layout/page) cookies podem ser read-only.
+          }
         },
         remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: "", ...options });
+          try {
+            cookieStore.set(name, "", { ...options, maxAge: 0 });
+          } catch {
+            // idem
+          }
         },
       },
     }
