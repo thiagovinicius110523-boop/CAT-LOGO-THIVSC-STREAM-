@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import "./globals.css";
 import { supabaseServer } from "@/lib/supabase/server";
 
@@ -14,17 +16,38 @@ function styleVars(tokens: any) {
   const text = t.text || "rgba(243,246,255,.92)";
   const muted = t.muted || "rgba(205,219,245,.62)";
   const radius = String(t.radius || "18");
-  return `:root{--accent:${accent};--bg:${bg};--card:${card};--text:${text};--muted:${muted};--radius:${radius}px}`;
+
+  return `
+    :root{
+      --accent:${accent};
+      --bg:${bg};
+      --card:${card};
+      --text:${text};
+      --muted:${muted};
+      --radius:${radius};
+    }
+  `;
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const supabase = supabaseServer();
-  const { data: s } = await supabase.from("app_settings").select("theme_tokens").maybeSingle();
+  const { data: s } = await supabase
+    .from("app_settings")
+    .select("theme_tokens")
+    .maybeSingle();
+
   const css = styleVars((s as any)?.theme_tokens);
+
   return (
     <html lang="pt-br">
-      <body>
+      <head>
         <style dangerouslySetInnerHTML={{ __html: css }} />
+      </head>
+      <body style={{ background: "var(--bg)", color: "var(--text)" }}>
         {children}
       </body>
     </html>
