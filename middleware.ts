@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -9,27 +9,27 @@ export async function middleware(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return req.cookies.get(name)?.value;
+        getAll() {
+          return req.cookies.getAll();
         },
-        set(name: string, value: string, options: CookieOptions) {
-          res.cookies.set({ name, value, ...options });
-        },
-        remove(name: string, options: CookieOptions) {
-          res.cookies.set({ name, value: "", ...options, maxAge: 0 });
+        setAll(cookies) {
+          cookies.forEach(({ name, value, options }) => {
+            res.cookies.set(name, value, options);
+          });
         },
       },
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const url = req.nextUrl;
   const pathname = url.pathname;
 
-  const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/no-access");
+  const isAuthRoute =
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/no-access") ||
+    pathname.startsWith("/reset-password"); // importante pro reset
   const isApi = pathname.startsWith("/api");
   const isPublic =
     isAuthRoute ||
